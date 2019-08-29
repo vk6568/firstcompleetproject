@@ -2,6 +2,7 @@ package com.in.Firstcompleteproject.service;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,15 +58,18 @@ public class EmployeeServiceImplTest {
 	@Test
 	public void creatRegistrationTest() {
 		Mockito.when(employeerepository.save(Mockito.any())).thenReturn(employee);
-		ApiResponse apiResponse = employeeserviceimpl.creatRegistration(createdto);
-		assertEquals(200, apiResponse.getStatus());	
+		Employee e = employeeserviceimpl.creatRegistration(createdto);
+		assertNotNull(e);
+		assertEquals(e.getFirstName(), "ashish");
 	}
 	
 	@Test
 	public void LoginTest() {
 		Mockito.when(employeerepository.findByemail(Mockito.any())).thenReturn(employee);
-		ApiResponse apiResponse = employeeserviceimpl.login(logindto);
-		assertEquals(200, apiResponse.getStatus());	
+		Employee e  = employeeserviceimpl.login(logindto);
+		 assertNotNull(e);
+		assertEquals(e.getEmail(), "tukari@gmail.com");
+			
 		
 	}
 

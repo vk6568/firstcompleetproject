@@ -1,6 +1,9 @@
 package com.in.Firstcompleteproject.controller;
 
+
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.in.Firstcompleteproject.dto.CreateDto;
 import com.in.Firstcompleteproject.dto.loginDto;
@@ -32,18 +37,17 @@ public class EmployeeControllerTest {
     CreateDto createdto;
 	Employee employee;
 	loginDto logindto ;
-	ApiResponse apiResponse;
+	
 	
 	@Before
 	public void setup() {
-		apiResponse = new ApiResponse(200, null, apiResponse);
-//		employee = new Employee();
-//		employee.setEmail("tukari@gmail.com");
-//		employee.setFirstName("ashish");
-//		employee.setLastName("kumar");
-//		employee.setPassword("Ashish@123");
-//		employee.setPhoneNo(1234567891);
-//		employee.setId(6);
+		employee = new Employee();
+		employee.setEmail("tukari@gmail.com");
+		employee.setFirstName("ashish");
+		employee.setLastName("kumar");
+		employee.setPassword("Ashish@123");
+		employee.setPhoneNo(1234567891);
+		employee.setId(6);
 		
 		createdto = new CreateDto();
 		createdto.setEmail("tukari@gmail.com");
@@ -60,16 +64,20 @@ public class EmployeeControllerTest {
 	
 	@Test
 	public void creatRegistrationTest() {
-		Mockito.when(employeeserviceimpl.creatRegistration(Mockito.any())).thenReturn(apiResponse);
-		ApiResponse apiResponse =  employeecontroller.CreateRegistration(createdto);
-		assertEquals(200, apiResponse.getStatus());	
+		Mockito.when(employeeserviceimpl.creatRegistration(Mockito.any())).thenReturn(employee);
+		ResponseEntity<String> res =  employeecontroller.CreateRegistration(createdto);
+		String s= res.toString();
+		  assertNotNull(res);
+		  assertEquals("<200 OK OK,success registration,[]>", s);
 	}
 	
 	@Test
 	public void LoginTest() {
-		Mockito.when(employeeserviceimpl.login(Mockito.any())).thenReturn(apiResponse);
-		ApiResponse apiResponse = employeeserviceimpl.login(logindto);
-		assertEquals(200, apiResponse.getStatus());	
+		Mockito.when(employeeserviceimpl.login(Mockito.any())).thenReturn(employee);
+		ResponseEntity<String> res =  employeecontroller.login(logindto);
+		String s= res.toString(); 
+		assertNotNull(res);
+		  assertEquals("<200 OK OK,success login,[]>", s);
 		
 	}
 
