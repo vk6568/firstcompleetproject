@@ -93,7 +93,7 @@
                       <id>default-report</id>
                        <phase>prepare-package</phase>
                         <goals>
-                         <goal>report</goal>
+                          <goal>report</goal>
                         </goals>
                            </execution>
                             </executions>

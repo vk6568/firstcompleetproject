@@ -20,6 +20,11 @@ public class ApiResponse {
 		this.result = result;
 	}
 
+	
+
+
+
+
 	public int getStatus() {
 		return status;
 	}

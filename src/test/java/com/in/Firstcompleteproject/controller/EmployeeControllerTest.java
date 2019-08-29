@@ -1,5 +1,4 @@
-package com.in.Firstcompleteproject.service;
-
+package com.in.Firstcompleteproject.controller;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,30 +15,35 @@ import com.in.Firstcompleteproject.dto.loginDto;
 import com.in.Firstcompleteproject.entity.Employee;
 import com.in.Firstcompleteproject.repository.EmployeeRepository;
 import com.in.Firstcompleteproject.response.ApiResponse;
+import com.in.Firstcompleteproject.service.EmployeeServiceImpl;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class EmployeeServiceImplTest {
+public class EmployeeControllerTest {
+	
 	
 	@Mock
-	EmployeeRepository employeerepository;
-	
-	@InjectMocks
 	EmployeeServiceImpl employeeserviceimpl;
 	
+	@InjectMocks
+	EmployeeController employeecontroller;
 	
-	CreateDto createdto;
+	
+
+    CreateDto createdto;
 	Employee employee;
 	loginDto logindto ;
+	ApiResponse apiResponse;
 	
 	@Before
 	public void setup() {
-		employee = new Employee();
-		employee.setEmail("tukari@gmail.com");
-		employee.setFirstName("ashish");
-		employee.setLastName("kumar");
-		employee.setPassword("Ashish@123");
-		employee.setPhoneNo(1234567891);
-		employee.setId(6);
+		apiResponse = new ApiResponse(200, null, apiResponse);
+//		employee = new Employee();
+//		employee.setEmail("tukari@gmail.com");
+//		employee.setFirstName("ashish");
+//		employee.setLastName("kumar");
+//		employee.setPassword("Ashish@123");
+//		employee.setPhoneNo(1234567891);
+//		employee.setId(6);
 		
 		createdto = new CreateDto();
 		createdto.setEmail("tukari@gmail.com");
@@ -56,14 +60,14 @@ public class EmployeeServiceImplTest {
 	
 	@Test
 	public void creatRegistrationTest() {
-		Mockito.when(employeerepository.save(Mockito.any())).thenReturn(employee);
-		ApiResponse apiResponse = employeeserviceimpl.creatRegistration(createdto);
+		Mockito.when(employeeserviceimpl.creatRegistration(Mockito.any())).thenReturn(apiResponse);
+		ApiResponse apiResponse =  employeecontroller.CreateRegistration(createdto);
 		assertEquals(200, apiResponse.getStatus());	
 	}
 	
 	@Test
 	public void LoginTest() {
-		Mockito.when(employeerepository.findByemail(Mockito.any())).thenReturn(employee);
+		Mockito.when(employeeserviceimpl.login(Mockito.any())).thenReturn(apiResponse);
 		ApiResponse apiResponse = employeeserviceimpl.login(logindto);
 		assertEquals(200, apiResponse.getStatus());	
 		
